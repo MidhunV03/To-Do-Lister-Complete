@@ -27,26 +27,51 @@ window.onload = async function fetching() {
         data.forEach(element => {
             const div = document.createElement('div');
             div.innerHTML = `
-            <div class = "row p-3">
-                <div class = "col-md-6">
-                    <img src="../asserts/Login.svg" style = "height:auto"> 
-                </div>
-                <div class = "col-md-6">
-                    <h1 class="d-flex justify-content-center "><strong>USER DETAILS</strong></h1>
+<div class="row p-4 align-items-center">
 
-                    <br>
-                    <div class = "d-flex flex-column justify-content-center align-item-start gap-3">
-                        <h1 class="fs-4">NAME :<strong> ${element.name}</strong></h1>
-                        <h1 class="fs-4">EMAIL :<strong> ${element.email}</strong></h1>
-                        <h1 class="fs-4">DATE OF BIRTH [yyyy-mm-dd] :<strong> ${element.dob}</strong></h1>
-                        <h1 class="fs-4">GENDER :<strong> ${element.gender}</strong></h1>
-                        <h1 class="fs-4">ROLE :<strong> ${element.role}</strong></h1>
-                        <h1 class="fs-4">ADDRESS :<strong> ${element.address}</strong></h1>
-                        <br>
-                        <button class = "btn btn-danger w-25 logout-btn">LOG OUT</button>
-                    </div>
+    <div class="col-lg-5 text-center mb-4 mb-lg-0">
+        <img src="../asserts/Login.svg" class="img-fluid" style="max-height:350px;" alt="User Profile">
+    </div>
+
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm p-4">
+            <h2 class="text-center fw-bold mb-4">
+                USER DETAILS
+            </h2>
+            <div class="d-flex flex-column gap-3">
+                <div>
+                    <span class="text-secondary">Name</span>
+                    <h5 class="mb-0 fw-semibold">${element.name}</h5>
+                </div>
+                <div>
+                    <span class="text-secondary">Email</span>
+                    <h5 class="mb-0 fw-semibold">${element.email}</h5>
+                </div>
+                <div>
+                    <span class="text-secondary">Date of Birth</span>
+                    <h5 class="mb-0 fw-semibold">${element.dob}</h5>
+                </div>
+                <div>
+                    <span class="text-secondary">Gender</span>
+                    <h5 class="mb-0 fw-semibold">${element.gender}</h5>
+                </div>
+                <div>
+                    <span class="text-secondary">Role</span>
+                    <h5 class="mb-0 fw-semibold">${element.role}</h5>
+                </div>
+                <div>
+                    <span class="text-secondary">Address</span>
+                    <h5 class="mb-0 fw-semibold">${element.address}</h5>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-danger px-4 logout-btn">
+                        Log Out
+                    </button>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
             `;
             userDetails.appendChild(div)
         });
@@ -58,7 +83,7 @@ window.onload = async function fetching() {
                     icon : "question",
                     showCancelButton : true
                 })
-
+                
                 if(!result.isConfirmed)
                 {
                     return;

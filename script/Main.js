@@ -28,7 +28,6 @@ document.getElementById("addbtn").addEventListener('click',function()
 
     duedate.value = "";
     duedate.min = today;
-
 })
 
 document.getElementById("saveTask").addEventListener('click', async function () {
@@ -38,6 +37,9 @@ document.getElementById("saveTask").addEventListener('click', async function () 
     const startdate = document.getElementById('startdate').value;
     const duedate = document.getElementById('duedate1').value;
     const priority = document.getElementById('priority').value;
+
+    const startdateformat = new Date(startdate).toLocaleDateString('en-GB');
+    const duedateformat = new Date(duedate).toLocaleDateString('en-GB');
 
     let notYetStarted = true;
     let isPending = false;
@@ -57,8 +59,8 @@ document.getElementById("saveTask").addEventListener('click', async function () 
                 isPending : isPending,
                 isCompleted : isCompleted,
                 isdeleted : isdeleted,
-                startdate : startdate,
-                duedate : duedate,
+                startdate : startdateformat,
+                duedate : duedateformat,
                 priority : priority,
                 userid : currentUserID
             })
@@ -109,6 +111,7 @@ document.getElementById("saveTask").addEventListener('click', async function () 
 // }
 
 renderTasks();
+
 async function deletetask(taskid)
 {
     console.log("delete")
@@ -127,7 +130,6 @@ async function deletetask(taskid)
     {
         return;
     }
-
     try
     {   
         await fetch(`${API}/${taskid}`, {
@@ -139,7 +141,6 @@ async function deletetask(taskid)
                 isdeleted : true
             })
         });
-        
         Swal.fire(
             "Deleted!",
             "Task moved to deleted section",
@@ -180,6 +181,7 @@ async function deletetask(taskid)
 //         console.log(error)
 //     }   
 // }
+
 async function renderTasks()
 {
     try
@@ -189,19 +191,15 @@ async function renderTasks()
 
     const taskContainer = document.getElementById('taskContainer');
     taskContainer.innerHTML = "";
-    data.forEach(element => {
+    data.reverse().forEach(element => {
         const div = document.createElement('div');
         div.classList.add(
-            "mb-3",
-            "p-3",
-            "border",
-            "rounded",
-            "shadow-sm",
-            "cardColor"
+            "mb-3","p-3","border","rounded","shadow-sm","cardColor"
         );
         div.innerHTML = `
-        <div class="d-flex justify-content-between align-items-end" >
-            <div>
+        <div class="d-flex justify-content-between align-items-end">
+            <div class="row w-100">
+                <div class = "col-6">
                 <h3 class="fw-bold mb-2">
                     ${element.Title}
                 </h3>
@@ -216,8 +214,10 @@ async function renderTasks()
                     <strong> Due Date :</strong>
                     ${element.duedate}
                 </p>
-                <p class="mb-2">
-                    <strong>Status :</strong>
+                </div>
+                <div class = "col-6 d-flex flex-column justify-content-between align-items-end">
+                <div class ="d-flex">
+                <p class="mb-2 me-3">
                     ${
                         element.isPending === true
                         ? `<span class="text-warning fw-bold">Pending</span>`
@@ -226,16 +226,13 @@ async function renderTasks()
                     }
                 </p>
                 <p class="mb-2">
-                    <strong>Priority :</strong>
                     ${
                         element.priority === "High"
                         ? `<span class="text-danger fw-bold">🔴 High</span>`
                         : `<span class="text-success fw-bold">🟢 Low</span>`
                     }
                 </p>
-            </div>
-
-        
+                </div>
         <div class="">
             <button
                onclick="openUpdateModal(
@@ -262,6 +259,7 @@ async function renderTasks()
                 class="btn btn-danger">
                 Delete
             </button>
+        </div>
         </div>
         </div>
         `;
@@ -292,12 +290,13 @@ async function pendingrenderTasks()
     document.getElementById('pendingTaskContainer');   
     pendingtaskContainer.innerHTML = "";
     
-    task.forEach(element => {
+    task.reverse().forEach(element => {
         const div = document.createElement('div');
         div.classList.add("mb-3","p-3","border","rounded","cardColor");
         div.innerHTML = `
         <div class="d-flex justify-content-between align-items-end">
-            <div>
+            <div class="row w-100">
+                <div class = "col-6">
                 <h3 class="fw-bold mb-2">
                     ${element.Title}
                 </h3>
@@ -312,8 +311,10 @@ async function pendingrenderTasks()
                     <strong> Due Date :</strong>
                     ${element.duedate}
                 </p>
-                <p class="mb-2">
-                    <strong>Status :</strong>
+                </div>
+                <div class = "col-6 d-flex flex-column justify-content-between align-items-end">
+                <div class ="d-flex">
+                <p class="mb-2 me-3">
                     ${
                         element.isPending === true
                         ? `<span class="text-warning fw-bold">Pending</span>`
@@ -322,16 +323,13 @@ async function pendingrenderTasks()
                     }
                 </p>
                 <p class="mb-2">
-                    <strong>Priority :</strong>
                     ${
                         element.priority === "High"
                         ? `<span class="text-danger fw-bold">🔴 High</span>`
                         : `<span class="text-success fw-bold">🟢 Low</span>`
                     }
                 </p>
-            </div>
-
-        
+                </div>
         <div class="">
             <button
                onclick="openUpdateModal(
@@ -358,6 +356,7 @@ async function pendingrenderTasks()
                 class="btn btn-danger">
                 Delete
             </button>
+        </div>
         </div>
         </div>
         `;
@@ -428,7 +427,7 @@ async function deletedrenderTasks(data)
     const deletedtaskContainer =document.getElementById('deletedTaskContainer');   
     deletedtaskContainer.innerHTML = "";
     
-    task.forEach(element => {
+    task.reverse().forEach(element => {
         const div = document.createElement('div');
         div.classList.add("mb-3","p-3","border","rounded","cardColor");
         div.innerHTML = `
@@ -546,7 +545,8 @@ async function completedrenderTasks()
         );
         div.innerHTML = `
         <div class="d-flex justify-content-between align-items-end">
-            <div>
+            <div class="row w-100">
+                <div class = "col-6">
                 <h3 class="fw-bold mb-2">
                     ${element.Title}
                 </h3>
@@ -560,9 +560,11 @@ async function completedrenderTasks()
                 <p class="mb-1">
                     <strong> Due Date :</strong>
                     ${element.duedate}
-                </p>                
-                <p class="mb-2">
-                    <strong>Status :</strong>
+                </p>
+                </div>
+                <div class = "col-6 d-flex flex-column justify-content-between align-items-end">
+                <div class ="d-flex">
+                <p class="mb-2 me-3">
                     ${
                         element.isPending === true
                         ? `<span class="text-warning fw-bold">Pending</span>`
@@ -571,16 +573,13 @@ async function completedrenderTasks()
                     }
                 </p>
                 <p class="mb-2">
-                    <strong>Priority :</strong>
                     ${
                         element.priority === "High"
                         ? `<span class="text-danger fw-bold">🔴 High</span>`
                         : `<span class="text-success fw-bold">🟢 Low</span>`
                     }
                 </p>
-            </div>
-
-        
+                </div>
         <div class="">
             <button
                onclick="openUpdateModal(
@@ -607,6 +606,7 @@ async function completedrenderTasks()
                 class="btn btn-danger">
                 Delete
             </button>
+        </div>
         </div>
         </div>
         `;
@@ -649,10 +649,8 @@ async function overduerenderTasks(data)
 
     duedatetaskContainer.innerHTML = "";
 
-    task.forEach(element => {
-
+    task.reverse().forEach(element => {
         const div = document.createElement('div');
-
         div.classList.add(
             "mb-3",
             "p-3",
@@ -662,38 +660,43 @@ async function overduerenderTasks(data)
         );
 
         div.innerHTML = `
-        <div class="d-flex justify-content-between align-items-start">
-            <div>
-                <h3 class="fw-bold mb-2">${element.Title}</h3>
-                <p class="mb-2">${element.Desc}</p>
+        <div class="d-flex justify-content-between align-items-end">
+            <div class="row w-100">
+                <div class = "col-6">
+                <h3 class="fw-bold mb-2">
+                    ${element.Title}
+                </h3>
+                <p class="mb-2">
+                    ${element.Desc}
+                </p>
                 <p class="mb-1">
                     <strong>Start Date :</strong>
                     ${element.startdate}
                 </p>
-
-                <p class="mb-1 text-danger fw-bold">
-                    <strong>Due Date :</strong>
+                <p class="mb-1">
+                    <strong> Due Date :</strong>
                     ${element.duedate}
                 </p>
-                <p class="mb-2">
-                    <strong>Priority :</strong>
+                </div>
+                <div class = "col-6 d-flex flex-column justify-content-between align-items-end">
+                <div class ="d-flex">
+                <p class="mb-2 me-3">
                     ${
-                        element.priority === "High"
-                        ?
-                        `<span class="text-danger fw-bold">
-                            🔴 High
-                        </span>`
-                        :
-                        `<span class="text-success fw-bold">
-                            🟢 Low
-                        </span>`
+                        element.isPending === true
+                        ? `<span class="text-warning fw-bold">Pending</span>`
+                        : (element.isCompleted === true) ? `<span class="text-success fw-bold">Completed</span>`
+                        : `<span class="text-primary fw-bold">Not Yet Started</span>`
                     }
                 </p>
-            </div>
-        </div>
-
-        <div class="mt-3">
-
+                <p class="mb-2">
+                    ${
+                        element.priority === "High"
+                        ? `<span class="text-danger fw-bold">🔴 High</span>`
+                        : `<span class="text-success fw-bold">🟢 Low</span>`
+                    }
+                </p>
+                </div>
+        <div>
             <button
                onclick="openUpdateModal(
                     '${element.id}',
@@ -714,20 +717,17 @@ async function overduerenderTasks(data)
                 class="btn btn-warning me-2">
                 Update
             </button>
-
             <button
                 onclick="deletetask('${element.id}')"
                 class="btn btn-danger">
-
                 Delete
             </button>
-
+        </div>
+        </div>
         </div>
         `;
-
         duedatetaskContainer.appendChild(div);
         refreshCurrentTab();
-
     });
 }
 
@@ -757,10 +757,8 @@ async function highpriorityrenderTasks()
 
     highprioritytaskContainer.innerHTML = "";
 
-    task.forEach(element => {
-
+    task.reverse().forEach(element => {
         const div = document.createElement('div');
-
         div.classList.add(
             "mb-3",
             "p-3",
@@ -770,7 +768,8 @@ async function highpriorityrenderTasks()
 
         div.innerHTML = `
         <div class="d-flex justify-content-between align-items-end">
-            <div>
+            <div class="row w-100">
+                <div class = "col-6">
                 <h3 class="fw-bold mb-2">
                     ${element.Title}
                 </h3>
@@ -785,8 +784,10 @@ async function highpriorityrenderTasks()
                     <strong> Due Date :</strong>
                     ${element.duedate}
                 </p>
-                <p class="mb-2">
-                    <strong>Status :</strong>
+                </div>
+                <div class = "col-6 d-flex flex-column justify-content-between align-items-end">
+                <div class ="d-flex">
+                <p class="mb-2 me-3">
                     ${
                         element.isPending === true
                         ? `<span class="text-warning fw-bold">Pending</span>`
@@ -795,16 +796,13 @@ async function highpriorityrenderTasks()
                     }
                 </p>
                 <p class="mb-2">
-                    <strong>Priority :</strong>
                     ${
                         element.priority === "High"
                         ? `<span class="text-danger fw-bold">🔴 High</span>`
                         : `<span class="text-success fw-bold">🟢 Low</span>`
                     }
                 </p>
-            </div>
-
-        
+                </div>
         <div class="">
             <button
                onclick="openUpdateModal(
@@ -833,8 +831,8 @@ async function highpriorityrenderTasks()
             </button>
         </div>
         </div>
+        </div>
         `;
-
         highprioritytaskContainer.appendChild(div);
     });
 }
@@ -861,12 +859,10 @@ async function refreshCurrentTab()
         else if(currentTab === 'completed')
         {
             completedrenderTasks();
-            // renderTasks();
         }
         else if(currentTab === 'delete')
         {
             deletedrenderTasks();
-            // renderTasks();
         }
         else if(currentTab === 'duedate')
         {
@@ -882,6 +878,134 @@ async function refreshCurrentTab()
         console.log(error);
     }
 }
+
+document.getElementById("fromdate").addEventListener("change", function () {
+
+    const fromdate = this.value;
+
+    const todateInput = document.getElementById("todate");
+
+    todateInput.min = fromdate;
+});
+
+async function filterTask() {
+
+    let tasks;
+
+    const fromdate = document.getElementById("fromdate").value; 
+    const todate = document.getElementById("todate").value; 
+
+    if (fromdate === "" || todate === "")
+    {
+        toastr.error("Please Select Date");
+    }
+
+    document.getElementById("todate").min = fromdate;
+
+    const fromdateformated = new Date(fromdate).toLocaleDateString('en-GB');
+    const todateformated = new Date(todate).toLocaleDateString('en-GB');
+
+    try{
+        const response = await fetch(`${API}?userid=${currentUserID}?isdeleted=false`);
+        const data = await response.json();
+        tasks = data;
+    }
+    catch(error)
+    {
+        toastr.error(error)
+    }
+    
+    const filteredTask = tasks.filter(task => 
+        task.startdate >= fromdateformated && task.duedate <= todateformated
+    );
+
+const filterTaskContainer =
+    document.getElementById('filterTaskContainer');
+
+    filterTaskContainer.innerHTML = "";
+
+    filteredTask.reverse().forEach(element => {
+        const div = document.createElement('div');
+        div.classList.add(
+            "mb-3",
+            "mt-3",
+            "p-3",
+            "border",
+            "rounded","cardColor"
+        );
+
+        div.innerHTML = `
+        <div class="d-flex justify-content-between align-items-end">
+            <div class="row w-100">
+                <div class = "col-6">
+                <h3 class="fw-bold mb-2">
+                    ${element.Title}
+                </h3>
+                <p class="mb-2">
+                    ${element.Desc}
+                </p>
+                <p class="mb-1">
+                    <strong>Start Date :</strong>
+                    ${element.startdate}
+                </p>
+                <p class="mb-1">
+                    <strong> Due Date :</strong>
+                    ${element.duedate}
+                </p>
+                </div>
+                <div class = "col-6 d-flex flex-column justify-content-between align-items-end">
+                <div class ="d-flex">
+                <p class="mb-2 me-3">
+                    ${
+                        element.isPending === true
+                        ? `<span class="text-warning fw-bold">Pending</span>`
+                        : (element.isCompleted === true) ? `<span class="text-success fw-bold">Completed</span>`
+                        : `<span class="text-primary fw-bold">Not Yet Started</span>`
+                    }
+                </p>
+                <p class="mb-2">
+                    ${
+                        element.priority === "High"
+                        ? `<span class="text-danger fw-bold">🔴 High</span>`
+                        : `<span class="text-success fw-bold">🟢 Low</span>`
+                    }
+                </p>
+                </div>
+        <div class="">
+            <button
+               onclick="openUpdateModal(
+                    '${element.id}',
+                    '${element.Title}',
+                    '${element.Desc}',
+                    '${
+                        element.isPending === true 
+                        ? 'pending'
+                        : (element.isCompleted === true) ? 'completed'
+                        : 'Not Yet Stated'
+                    }',
+                    '${element.startdate}',
+                    '${element.duedate}',
+                    '${element.priority}'
+                )"
+                data-bs-toggle="modal"
+                data-bs-target="#updateTaskModal"
+                class="btn btn-warning me-2">
+                Update
+            </button>
+            <button
+                onclick="deletetask('${element.id}')"
+                class="btn btn-danger">
+                Delete
+            </button>
+        </div>
+        </div>
+        </div>
+        `;
+        filterTaskContainer.appendChild(div);
+    });
+}   
+
+document.getElementById("filtertasksubbtn").addEventListener('click',filterTask)
 
 const userNametag = document.getElementById("username");
 

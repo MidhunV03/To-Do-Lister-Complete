@@ -43,6 +43,9 @@
                 <button id="deletedtaskbtn" class="btn btn-danger px-4 fw-bold text-black cardColor" data-bs-toggle="modal" data-bs-target="#deletedTaskModal">
                     DELETED TASK
                 </button>
+                <button id="filtertaskbtn" class="btn btn-warning px-4 fw-bold text-black cardColor" data-bs-toggle="modal" data-bs-target="#filterTaskModal">
+                    FILTER TASK
+                </button>
             </div>
             <div>
                 <ul class="nav nav-tabs" id="myTab">
@@ -57,7 +60,7 @@
 
                     <li class="nav-item">
                         <button 
-                            class="nav-link cardColor btn btn-warning"
+                            class="nav-link cardColor  btn btn-warning"
                             data-bs-toggle="tab"
                             data-bs-target="#pending"
                             id="pendingtaskbtn">
@@ -101,27 +104,18 @@
                         </button>
                     </li>
                 </ul>
-
-                <!-- Tab Content -->
                 <div class="tab-content border border-top-0 p-3 rounded-bottom ">
 
-                    <!-- HOME TAB -->
                     <div class="tab-pane fade show active" id="home">
                         <div id="taskContainer" class="d-flex flex-column"></div>
                     </div>
 
-                    <!-- PENDING TAB -->
                     <div class="tab-pane fade" id="pending">
                         <div id="pendingTaskContainer"></div>
                     </div>
-
                     <div class="tab-pane fade" id="completed">
                         <div id="completedTaskContainer"></div>
                     </div>
-
-                    <!-- <div class="tab-pane fade" id="deleted">
-                        <div id="deletedTaskContainer"></div> 
-                    </div>-->
                     <div class="tab-pane fade" id="duedate">
                         <div id="duedateTaskContainer"></div>
                     </div>
@@ -134,7 +128,6 @@
         </div>
     </div>
 
-    <!-- ADD TASK MODAL -->
 <div class="modal fade" id="addTaskModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
@@ -189,7 +182,6 @@
                         <label for="duedate" class="form-label fw-bold">
                             Due Date
                         </label>
-
                         <input 
                             type="date" 
                             class="form-control"
@@ -260,29 +252,24 @@
                         <label class="form-label fw-bold">
                             Start Date
                         </label>
-
                         <input 
                             type="date"
                             class="form-control"
                             id="updatestartdate">
                     </div>
-
                     <div class="mb-3">
                         <label class="form-label fw-bold">
                             Due Date
                         </label>
-
                         <input 
                             type="date"
                             class="form-control"
                             id="updateduedate">
                     </div>
-
                     <div class="mb-3">
                         <label class="form-label fw-bold">
                             Priority
                         </label>
-
                         <select class="form-select" id="updatepriority">
 
                             <option value="High">
@@ -339,6 +326,42 @@
         </div>
     </div>
 </div>
+
+<!-- FOR FILTER TASK -->
+
+    <div class="modal" id="filterTaskModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Filter task</h5>
+                    <button 
+                        type="button" 
+                        class="btn-close" 
+                        data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="fromdate" class="form-label fw-bold">From Date :</label>
+                            <input type="date" class="form-control w-75" id="fromdate">
+                        </div> 
+                        <div class="col-4">
+                            <label for="todate" class="form-label fw-bold">To Date :</label>
+                            <input type="date" class="form-control w-75" id="todate">
+                        </div>
+                        <div class="col-4 d-flex justify-content-center" style="height: 40px;">
+                            <button class="btn btn-primary" id="filtertasksubbtn"> FILTER TASK </button>
+                        </div>
+                        <div class="row">
+                            <div id="filterTaskContainer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
