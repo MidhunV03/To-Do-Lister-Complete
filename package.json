@@ -1,0 +1,11 @@
+{
+  "name": "to-do-lister",
+  "version": "1.0.0",
+  "description": "Task management web application using JavaScript and JSON Server",
+  "scripts": {
+    "start": "json-server db.json --host 0.0.0.0 --port 10000"
+  },
+  "dependencies": {
+    "json-server": "^1.0.0"
+  }
+}

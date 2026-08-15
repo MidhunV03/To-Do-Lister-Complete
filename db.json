@@ -1,63 +1,15 @@
 {
-  "tasks": [
-    {
-      "Title": "Needss to done today",
-      "Desc": "Needss to done today",
-      "notYetStarted": true,
-      "isPending": false,
-      "isCompleted": false,
-      "isdeleted": false,
-      "startdate": "28/05/2026",
-      "duedate": "31/05/2026",
-      "priority": "Low",
-      "userid": "Oe660oAUT-c",
-      "id": "v8-5Hlz2jVs"
-    },
-    {
-      "Title": "Finish Assignments",
-      "Desc": "to complete all the pending works",
-      "notYetStarted": true,
-      "isPending": true,
-      "isCompleted": false,
-      "isdeleted": false,
-      "startdate": "",
-      "duedate": "",
-      "priority": "High",
-      "userid": "OhmfBc5In5o",
-      "id": "Rs9E4eA-UIo"
-    }
-  ],
   "users": [
     {
-      "name": "Midhun V",
-      "email": "midhun1@gmail.com",
-      "password": "Midhun@123",
-      "dob": "2004-09-03",
-      "gender": "Male",
+      "name": "Demo User",
+      "email": "demo@example.com",
+      "password": "Demo@123",
+      "dob": "2000-01-01",
+      "gender": "Other",
       "role": "Employee",
-      "address": "TamilNadu",
-      "id": "Oe660oAUT-c"
-    },
-    {
-      "name": "For Pubg",
-      "email": "forpubg726@gmail.com",
-      "password": "Midhun@123",
-      "dob": "2026-05-10",
-      "gender": "Male",
-      "role": "Employee",
-      "address": "Midhun@123",
-      "id": "foUV1ZOw1Ck"
-    },
-    {
-      "name": "Chinese",
-      "email": "chinese@gmail.com",
-      "password": "Chinese@1",
-      "dob": "2005-09-13",
-      "gender": "Female",
-      "role": "Employee",
-      "address": "Arul Jothi Nagar",
-      "id": "OhmfBc5In5o"
+      "address": "Demo Address",
+      "id": "demo-user-1"
     }
   ],
-  "$schema": "./node_modules/json-server/schema.json"
+  "tasks": []
 }

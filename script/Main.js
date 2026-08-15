@@ -906,7 +906,7 @@ async function filterTask() {
     const todateformated = new Date(todate).toLocaleDateString('en-GB');
 
     try{
-        const response = await fetch(`${API}?userid=${currentUserID}?isdeleted=false`);
+        const response = await fetch(`${API}?userid=${currentUserID}&isdeleted=false`);
         const data = await response.json();
         tasks = data;
     }
