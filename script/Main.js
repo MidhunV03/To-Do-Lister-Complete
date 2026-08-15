@@ -9,7 +9,7 @@ $('#dark-toggle').on('click',function(){
     }
 })
 
-const API = "http://localhost:3000/tasks";
+const API = "https://to-do-lister.onrender.com/tasks";
 let currentTab = 'ALL';
 const parent_div = document.getElementById('parent-div');
 const currentUser = JSON.parse(localStorage.getItem("Userdetail"))

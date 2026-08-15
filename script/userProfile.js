@@ -9,7 +9,7 @@ $('#dark-toggle').on('click',function(){
     }
 })
 
-const API = "http://localhost:3000/users";
+const API = "https://to-do-lister.onrender.com/users";
 
 const currentUser =JSON.parse(localStorage.getItem("Userdetail"));
 console.log(currentUser.Userid)
